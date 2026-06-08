@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="TimeLinePreview/TimeLinePreview.vcxproj" Id="92bed04a-3080-41a5-9b74-2ed225379305" />
+</Solution>
