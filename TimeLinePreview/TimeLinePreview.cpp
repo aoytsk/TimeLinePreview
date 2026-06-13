@@ -565,7 +565,10 @@ void TimelineInspector::on_thumbnail_ready()
 void TimelineInspector::update_at(POINT pt)
 {
     if (rendering_ || !edit_) return;
-    if (edit_->get_edit_state() == EDIT_HANDLE::EDIT_STATE_SAVE) return;
+    { const int st = edit_->get_edit_state();
+      if (st == EDIT_HANDLE::EDIT_STATE_PLAY || st == EDIT_HANDLE::EDIT_STATE_SAVE)
+          { popup_->hide(); return; }
+    }
     if (!is_host_foreground()) { popup_->hide(); return; }
 
     struct HoverParam {
@@ -693,7 +696,7 @@ void SettingsDialog::show(HWND parent)
 void SettingsDialog::apply_translations(HWND hwnd)
 {
     // ダイアログ自体のキャプション
-    SetWindowTextW(hwnd, tr(config_, L"TimeLinePreview 設定"));
+    SetWindowTextW(hwnd, tr(config_, L"タイムラインプレビュー 設定"));
 
     // ラベル・チェックボックスを翻訳
     struct { int id; LPCWSTR key; } items[] = {
