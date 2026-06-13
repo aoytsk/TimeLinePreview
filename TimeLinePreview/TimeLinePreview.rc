@@ -1,0 +1,28 @@
+#pragma code_page(65001)
+#include "resource.h"
+#include "winres.h"
+
+//
+// Dialog
+//
+
+IDD_SETTINGS_DIALOG DIALOGEX 0, 0, 190, 180
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "TimeLinePreview 設定"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "サムネイル幅", IDC_LABEL_THUMB_W, 12, 16, 100, 8
+    EDITTEXT        IDC_THUMB_W, 120, 14, 58, 14, ES_AUTOHSCROLL | ES_NUMBER | ES_RIGHT
+
+    LTEXT           "タイマー間隔 (ms)", IDC_LABEL_TIMER_MS, 12, 34, 100, 8
+    EDITTEXT        IDC_TIMER_MS, 120, 32, 58, 14, ES_AUTOHSCROLL | ES_NUMBER | ES_RIGHT
+
+    CONTROL         "サムネイルを表示", IDC_SHOW_THUMB, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 12, 56, 166, 10
+    CONTROL         "ヘッダーを表示", IDC_SHOW_HEAD, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 12, 72, 166, 10
+    CONTROL         "メインエフェクトのパラメータを表示", IDC_SHOW_PARAM, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 12, 88, 166, 10
+    CONTROL         "フィルタ効果を表示", IDC_SHOW_FILTERS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 12, 104, 166, 10
+    CONTROL         "フィルタ効果のパラメータを表示", IDC_SHOW_FILTER_PARAMS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 12, 120, 166, 10
+
+    DEFPUSHBUTTON   "OK", IDOK, 76, 148, 50, 14
+    PUSHBUTTON      "キャンセル", IDCANCEL, 128, 148, 50, 14
+END
