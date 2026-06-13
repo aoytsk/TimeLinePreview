@@ -1,0 +1,16 @@
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/CMakeFiles/edit_cache.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/CMakeFiles/rebuild_cache.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/CMakeFiles/list_install_components.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/CMakeFiles/install.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/CMakeFiles/install/local.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/CMakeFiles/edit_cache.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/CMakeFiles/rebuild_cache.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/CMakeFiles/list_install_components.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/CMakeFiles/install.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/CMakeFiles/install/local.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/nuget/CMakeFiles/make_wil_nupkg.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/nuget/CMakeFiles/edit_cache.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/nuget/CMakeFiles/rebuild_cache.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/nuget/CMakeFiles/list_install_components.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/nuget/CMakeFiles/install.dir
+D:/src/aviutl/TimeLinePreview/vcpkg_installed/x64-windows/vcpkg/blds/wil/x64-windows-rel/packaging/nuget/CMakeFiles/install/local.dir

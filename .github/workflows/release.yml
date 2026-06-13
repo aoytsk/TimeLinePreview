@@ -1,0 +1,127 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      # ------------------------------------------------------------------ #
+      # 1. チェックアウト
+      # ------------------------------------------------------------------ #
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ------------------------------------------------------------------ #
+      # 2. Visual Studio / MSBuild セットアップ
+      # ------------------------------------------------------------------ #
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      # ------------------------------------------------------------------ #
+      # 3. vcpkg セットアップ（キャッシュ付き）
+      # ------------------------------------------------------------------ #
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: "${{ github.workspace }}/vcpkg"
+          vcpkgJsonGlob: "**/vcpkg.json"
+
+      # ------------------------------------------------------------------ #
+      # 4. ビルド（Release|x64）
+      # ------------------------------------------------------------------ #
+      - name: Build Release x64
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $msbuild = & $vswhere -latest -requires Microsoft.Component.MSBuild `
+            -find MSBuild\**\Bin\MSBuild.exe | Select-Object -First 1
+          if (-not $msbuild) { throw "MSBuild が見つかりません" }
+
+          $proj = "TimeLinePreview\TimeLinePreview.vcxproj"
+          & $msbuild $proj `
+            /t:Build /m `
+            /p:Configuration=Release `
+            /p:Platform=x64 `
+            /p:RunPostBuildEvent=Never `
+            /p:VcpkgRoot="${{ github.workspace }}\vcpkg" `
+            /p:VCPKG_INSTALLED_DIR="${{ github.workspace }}\vcpkg_installed"
+          if ($LASTEXITCODE -ne 0) { throw "ビルド失敗" }
+
+      # ------------------------------------------------------------------ #
+      # 5. パッケージ作成
+      # ------------------------------------------------------------------ #
+      - name: Create Package
+        id: package
+        shell: pwsh
+        run: |
+          $tag     = "${{ github.ref_name }}"
+          $pkgName = "timeline_preview_$tag"
+
+          # ビルド成果物確認（.aux2）
+          $bin = "x64\Release\TimeLinePreview.aux2"
+          if (-not (Test-Path $bin)) {
+            throw "ビルド成果物が見つかりません: $bin"
+          }
+
+          # Package フォルダをステージング領域として使う
+          $packageDir = "Package"
+          $pluginDir  = "$packageDir\Plugin"
+          $langDir    = "$packageDir\Language"
+
+          foreach ($d in @($pluginDir, $langDir)) {
+            if (Test-Path $d) { Remove-Item -LiteralPath $d -Recurse -Force }
+            New-Item -ItemType Directory -Path $d | Out-Null
+          }
+
+          # プラグイン本体
+          Copy-Item $bin -Destination "$pluginDir\TimeLinePreview.aux2" -Force
+
+          # 言語ファイル（TimeLinePreview\*.aul2）
+          $langFiles = Get-ChildItem -Path "TimeLinePreview" -Filter "*.aul2" -ErrorAction SilentlyContinue
+          if ($null -eq $langFiles -or $langFiles.Count -eq 0) {
+            throw "言語ファイルが見つかりません: TimeLinePreview\*.aul2"
+          }
+          foreach ($f in $langFiles) {
+            Copy-Item $f.FullName -Destination "$langDir\$($f.BaseName).TimeLinePreview.aul2" -Force
+          }
+
+          # ZIP 作成
+          $zip = "$pkgName.zip"
+          Compress-Archive -Path "$packageDir\*" -DestinationPath $zip -Force
+          Write-Host "Created: $zip"
+
+          # 後続ステップへ出力
+          "zip_path=$zip"     >> $env:GITHUB_OUTPUT
+          "pkg_name=$pkgName" >> $env:GITHUB_OUTPUT
+
+      # ------------------------------------------------------------------ #
+      # 6. GitHub Release 作成 & アセットアップロード
+      # ------------------------------------------------------------------ #
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: |
+            ## TimeLinePreview ${{ github.ref_name }}
+
+            タイムライン上でオブジェクトにホバーすると、サムネイルとパラメータをポップアップ表示するプラグインです。
+
+            ### インストール方法
+            ZIPを展開し、`Plugin` および `Language` フォルダを AviUtl2 の対応フォルダにコピーしてください。
+
+            ---
+            See [README](https://github.com/${{ github.repository }}/blob/main/README.md) for details.
+          files: ${{ steps.package.outputs.zip_path }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}

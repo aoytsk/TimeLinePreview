@@ -1,0 +1,23 @@
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 4d62084ed46d21b3d2bb47dacf102b8871f17204745a91c82c359dba8c614985
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2024-04-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 26c3c1aae17e0b0f1f93713ca1de930f4df5a7df4bff88554838e3a08a03cbc5
+Status: install ok installed
+
+Package: wil
+Version: 1.0.260126.7
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 1ef0265c0249d56d7e059a393e06f6500c8c67606712fee9852f8ed1b0a71eb0
+Description: The Windows Implementation Libraries (WIL) is a header-only C++ library created to make life easier for developers on Windows through readable type-safe C++ interfaces for common Windows coding patterns.
+Status: install ok installed
+
