@@ -15,12 +15,12 @@
 namespace timeline_preview {
 
     // プラグイン識別名（文字列リテラル連結のベースとして使用）
-#define TIMELINE_PREVIEW_NAME L"TimeLinePreview"
+#define TIMELINE_PREVIEW_NAME L"タイムラインプレビュー"
     inline constexpr LPCWSTR PLUGIN_NAME        = TIMELINE_PREVIEW_NAME;
-    inline constexpr LPCWSTR PLUGIN_VERSION_STR = TIMELINE_PREVIEW_NAME L" version 0.3";
+    inline constexpr LPCWSTR PLUGIN_VERSION_STR = TIMELINE_PREVIEW_NAME L" version 1.0.0";
 
     // ウィンドウクラス名
-    inline constexpr LPCWSTR POPUP_WINDOW_CLASS = TIMELINE_PREVIEW_NAME L"Popup";
+    inline constexpr LPCWSTR POPUP_WINDOW_CLASS = L"TimeLinePreview" L"Popup";
 
     // カスタムメッセージ
     inline constexpr UINT WM_THUMBNAIL_READY = WM_USER + 1;
