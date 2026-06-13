@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#define WIN32_LEAN_AND_MEAN             // Windows ヘッダーからほとんど使用されていない部分を除外する
+#define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
-// Windows ヘッダー ファイル
 #include <cstdint>
 #include <windows.h>
 #include <commctrl.h>
 #include <vfw.h>
+#include <wil/resource.h>  // wil::unique_handle, unique_hbitmap, unique_hbrush, unique_hpen, unique_hdc, unique_hhook
 
 #include "cache2.h"
 #include "config2.h"
