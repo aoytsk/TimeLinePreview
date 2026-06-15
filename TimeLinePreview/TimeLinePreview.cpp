@@ -565,6 +565,7 @@ void TimelineInspector::on_thumbnail_ready()
 void TimelineInspector::update_at(POINT pt)
 {
     if (rendering_ || !edit_) return;
+    if (!is_host_foreground() || !IsWindowEnabled(host_app_window_)) { popup_->hide(); return; }
     { const int st = edit_->get_edit_state();
       if (st == EDIT_HANDLE::EDIT_STATE_PLAY || st == EDIT_HANDLE::EDIT_STATE_SAVE)
           { popup_->hide(); return; }
